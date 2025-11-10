@@ -8,7 +8,6 @@ export default function EmployeeTasks() {
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
-  // 🔄 Load Tasks
   const load = async () => {
     try {
       const { data } = await api.get("/tasks", {
@@ -24,7 +23,6 @@ export default function EmployeeTasks() {
     load();
   }, []);
 
-  // 🔁 Update Task Status
   const updateStatus = async (id, status) => {
     try {
       await api.patch(
@@ -38,7 +36,6 @@ export default function EmployeeTasks() {
     }
   };
 
-  // 📂 Upload File
   const handleFileUpload = async (taskId, file) => {
     if (!file) return;
     const formData = new FormData();
@@ -61,18 +58,16 @@ export default function EmployeeTasks() {
     }
   };
 
-  // ⬇ Download File
   const handleDownload = (path) => {
-    window.open(`http://localhost:5000/${path}`, "_blank");
+    // ✅ Fixed live download URL
+    window.open(`${import.meta.env.VITE_API_BASE_URL.replace("/api", "")}/${path}`, "_blank");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-teal-100 pt-24">
       <DashboardHeader />
       <div className="max-w-5xl mx-auto bg-white/90 p-10 rounded-3xl shadow-xl border border-gray-200 mt-10">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          🧰 My Tasks
-        </h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">🧰 My Tasks</h1>
 
         <div className="space-y-3">
           {tasks.map((t) => (
@@ -99,7 +94,6 @@ export default function EmployeeTasks() {
                 </select>
               </div>
 
-              {/* 📎 File Upload Section */}
               <div className="border-t pt-3 mt-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   📎 Upload or View Files
@@ -129,18 +123,14 @@ export default function EmployeeTasks() {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-gray-500 text-sm">
-                    No files uploaded yet.
-                  </p>
+                  <p className="text-gray-500 text-sm">No files uploaded yet.</p>
                 )}
               </div>
             </div>
           ))}
 
           {tasks.length === 0 && (
-            <p className="text-gray-500 text-center">
-              No tasks assigned yet ✨
-            </p>
+            <p className="text-gray-500 text-center">No tasks assigned yet ✨</p>
           )}
         </div>
 

@@ -72,16 +72,15 @@ export default function ManagerTasks() {
   };
 
   const handleDownload = (path) => {
-    window.open(`http://localhost:5000/${path}`, "_blank");
+    // ✅ Fixed for deployed backend
+    window.open(`${import.meta.env.VITE_API_BASE_URL.replace("/api", "")}/${path}`, "_blank");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 pt-24">
       <DashboardHeader />
       <div className="max-w-6xl mx-auto bg-white/90 p-10 rounded-3xl shadow-xl border border-gray-200 mt-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          📋 Manage Tasks
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">📋 Manage Tasks</h1>
 
         {/* Create Form */}
         <form
@@ -166,7 +165,6 @@ export default function ManagerTasks() {
                 </button>
               </div>
 
-              {/* Files */}
               {t.attachments?.length > 0 && (
                 <div className="border-t pt-3 mt-2">
                   <p className="text-sm font-semibold text-gray-700 mb-1">
@@ -194,9 +192,7 @@ export default function ManagerTasks() {
           ))}
 
           {tasks.length === 0 && (
-            <p className="text-gray-500 text-center">
-              No tasks yet. Create one above ✨
-            </p>
+            <p className="text-gray-500 text-center">No tasks yet. Create one above ✨</p>
           )}
         </div>
 

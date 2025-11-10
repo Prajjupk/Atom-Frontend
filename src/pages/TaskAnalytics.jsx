@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/api"; // ✅ use unified api instance
 import {
   PieChart,
   Pie,
@@ -22,9 +22,8 @@ export default function TaskAnalytics() {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/tasks/analytics", {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await api.get("/tasks/analytics", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setTasks(res.data);
     } catch (err) {
@@ -65,7 +64,6 @@ export default function TaskAnalytics() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pt-24">
-      {/* ✅ Added header for consistency */}
       <DashboardHeader />
       <div className="max-w-6xl mx-auto bg-white/90 p-10 rounded-3xl shadow-xl border border-gray-200 mt-10">
         <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
