@@ -15,8 +15,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // ✅ Updated API endpoint to include /api prefix
-      const { data } = await api.post("/api/users/login", { email, password });
+      // <-- use relative path (api.js already points to <ROOT>/api)
+      const { data } = await api.post("/users/login", { email, password });
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);

@@ -23,8 +23,8 @@ export default function Signup() {
     setError("");
     setLoading(true);
     try {
-      // ✅ Updated API endpoint to include /api prefix
-      const res = await api.post("/api/users/register", form);
+      // <-- use relative path (api.js already points to <ROOT>/api)
+      const res = await api.post("/users/register", form);
       if (res.status === 201) {
         setSuccess("✅ Account created! Redirecting...");
         setTimeout(() => navigate("/"), 2000);
