@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const root = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+// Ensure all requests go to <ROOT>/api so frontend code can use "/tasks", "/users", etc.
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // ❌ Removed /api
+  baseURL: `${root}/api`,
 });
 
 // attach JWT if present
