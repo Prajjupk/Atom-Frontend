@@ -15,19 +15,17 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const { data } = await api.post("/users/login", { email, password });
+      // ✅ Updated API endpoint to include /api prefix
+      const { data } = await api.post("/api/users/login", { email, password });
 
-      // ✅ Store details instantly
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);
       localStorage.setItem("name", data.user.name);
 
-      // ✅ Trigger reactive rerender for App.jsx without blocking navigation
       setTimeout(() => {
         window.dispatchEvent(new Event("storage"));
       }, 50);
 
-      // ✅ Navigate immediately (no waiting)
       switch (data.user.role) {
         case "Admin":
           navigate("/admin-dashboard", { replace: true });

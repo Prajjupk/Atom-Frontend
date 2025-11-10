@@ -23,7 +23,8 @@ export default function Signup() {
     setError("");
     setLoading(true);
     try {
-      const res = await api.post("/users/register", form);
+      // ✅ Updated API endpoint to include /api prefix
+      const res = await api.post("/api/users/register", form);
       if (res.status === 201) {
         setSuccess("✅ Account created! Redirecting...");
         setTimeout(() => navigate("/"), 2000);
@@ -93,7 +94,9 @@ export default function Signup() {
         </form>
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{" "}
-          <Link to="/" className="text-blue-600 font-medium">Login</Link>
+          <Link to="/" className="text-blue-600 font-medium">
+            Login
+          </Link>
         </p>
       </div>
     </div>
